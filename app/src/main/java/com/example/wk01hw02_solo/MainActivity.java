@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Invalid Password", Toast.LENGTH_SHORT).show();
                         mPasswordField.selectAll();
                     }else {
-                        Intent intent = LandingActivity.intentFactory(getApplicationContext(), userId);
+                        Intent intent = LandingActivity.intentFactory(getApplicationContext(), userId, mUsername);
                         startActivity(intent);
                     }
                 };

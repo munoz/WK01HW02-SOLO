@@ -20,9 +20,13 @@ import com.example.wk01hw02_solo.MainActivity;
 public class LandingActivity extends AppCompatActivity {
 
     private static final String USER_ID_KEY = "com.example.wk01hw02_solo.userIdKey";
+    private static final String USER_NAME_KEY = "com.example.wk01hw02_solo.userNameKey";
 
     private TextView textViewResult;
+    private TextView welcome;
     private int userId;
+    private String userName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +47,10 @@ public class LandingActivity extends AppCompatActivity {
 //    }
 
     private void wireupDisplay1(){
-        textViewResult = findViewById(R.id.textView);
+        textViewResult = findViewById(R.id.postsDisplay);
+        welcome = findViewById(R.id.textView);
         userId = getIntent().getIntExtra(USER_ID_KEY, -1);
+        userName = getIntent().getStringExtra(USER_NAME_KEY);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://jsonplaceholder.typicode.com/")
@@ -54,6 +60,8 @@ public class LandingActivity extends AppCompatActivity {
         JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
         Call<List<Post>> call = jsonPlaceHolderApi.getPosts(userId);
+
+        welcome.setText("WELCOME! " + userName + "\n\n");
 
         call.enqueue(new Callback<List<Post>>() {
             @Override
@@ -80,9 +88,10 @@ public class LandingActivity extends AppCompatActivity {
     }
 
 
-    public static Intent intentFactory(Context context, int userId) {
+    public static Intent intentFactory(Context context, int userId, String userName) {
         Intent intent = new Intent(context, LandingActivity.class);
         intent.putExtra(USER_ID_KEY, userId);
+        intent.putExtra(USER_NAME_KEY, userName);
 
         return intent;
     }
