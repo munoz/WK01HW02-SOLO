@@ -9,12 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.wk01hw02_solo.Post;
+
 
 public class MainActivity extends AppCompatActivity {
 
 
-    private static final String PREFERENCES_KEY = "com.example.wk01hw02_solo.PREFERENCES_KEY";
 
     private Button mButton;
     private EditText mUsernameField;
@@ -64,7 +63,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean checkForUserInDatabase(){
 
         if(!mUsername.equals("din_djarin")){
-            Toast.makeText(this, "no user " + mUsername + " found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "Invalid Username", Toast.LENGTH_SHORT).show();
+            mUsernameField.selectAll();
             return false;
         }
         userId = 1;
